@@ -14,8 +14,11 @@ class Parking:
       if Parking.__instance != None:
          raise Exception("This class is a singleton!")
       else:
-         slots=getattr(settings, 'PARKING_SLOTS', '5')
-         self.totalSlots = int(slots)
+         try:
+            slots=getattr(settings, 'PARKING_SLOTS', '5')
+            self.totalSlots = int(slots)
+         except ValueError:
+            raise Exception("Invalid Number for Parking Slots "+PARKING_SLOTS)
          self.carInfo = {}  
          self.parkingInfo= {}
          self.freeSlots = [i for i in range(self.totalSlots)]
